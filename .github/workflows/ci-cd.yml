@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   test-and-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -24,10 +24,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Install optional dependencies
-        run: npm install --no-save --include=optional
+        run: npm ci
 
       - name: Run tests
         run: npm test -- --run
