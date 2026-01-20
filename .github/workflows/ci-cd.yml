@@ -1,41 +1,29 @@
-name: CI/CD Pipeline
+name: Run tests
 
 on:
   push:
-    branches: [main, master]
+    branches: [ main ]
   pull_request:
-    branches: [main, master]
-
-permissions:
-  contents: write
 
 jobs:
-  test-and-build:
-    runs-on: ubuntu-22.04
+  test:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
+          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Force clean install (fix Rollup bug)
+        run: |
+          npm cache clean --force
+          rm -rf node_modules package-lock.json
+          npm install --include=optional
 
       - name: Run tests
-        run: npm test -- --run
-        env:
-          ROLLUP_SKIP_NATIVE: true
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+        run: npm test
