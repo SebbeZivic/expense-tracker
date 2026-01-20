@@ -21,6 +21,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "jsdom": "^23.0.1",
     "vite": "^5.0.8",
-    "vitest": "^1.1.0"
+    "vitest": "^1.1.0",
+    "rollup": "^4.9.0"
   }
 }
