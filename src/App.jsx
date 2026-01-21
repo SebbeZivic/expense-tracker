@@ -1,5 +1,5 @@
 function App() {
-  return <h1>Expense Tracker</h1>;
+  return <h1>Expense Tracker 1</h1>;
 }
 
 export default App;
