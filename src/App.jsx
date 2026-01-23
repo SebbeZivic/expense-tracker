@@ -1,7 +1,14 @@
+import React from 'react'
+
+
 function App() {
-  return <h1>Expense Tracker 1</h1>;
+ return (
+   <div>
+     <h1>Budget Tracker</h1>
+     <p>Kommer snart...</p>
+   </div>
+ )
 }
 
-export default App;
 
-/** test */
+export default App
