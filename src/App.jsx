@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register";
 
 function ProtectedRoute({ children }) {
   const { user, isLoading } = useAuth();
@@ -27,11 +28,8 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login/>} />
-          <Route
-            path="/register"
-            element={<div>Register kommer snart...</div>}
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/dashboard"
             element={
