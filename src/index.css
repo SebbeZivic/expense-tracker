@@ -2,71 +2,64 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- }
- 
- 
- body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
   background-color: #f5f5f5;
- }
- 
- .auth-container {
+}
+
+.auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
- }
- 
- 
- .auth-card {
+}
+
+.auth-card {
   background: white;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
- }
- 
- 
- .auth-card h1 {
+}
+
+.auth-card h1 {
   text-align: center;
   margin-bottom: 30px;
   color: #333;
   font-size: 28px;
- }
- 
- 
- .form-group {
+}
+
+.form-group {
   margin-bottom: 20px;
- }
- 
- 
- .form-group label {
+}
+
+.form-group label {
   display: block;
   margin-bottom: 8px;
   color: #555;
   font-weight: 500;
- }
- 
- 
- .form-group input {
+}
+
+.form-group input {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
   transition: border-color 0.3s;
- }
- 
- 
- .form-group input:focus {
+}
+
+.form-group input:focus {
   outline: none;
   border-color: #667eea;
- }
- 
- 
- .btn {
+}
+
+.btn {
   width: 100%;
   padding: 12px;
   background: #667eea;
@@ -77,45 +70,215 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
- }
- 
- 
- .btn:hover {
+}
+
+.btn:hover {
   background: #5568d3;
- }
- 
- 
- .btn:disabled {
+}
+
+.btn:disabled {
   background: #ccc;
   cursor: not-allowed;
- }
- 
- 
- .auth-link {
+}
+
+.auth-link {
   text-align: center;
   margin-top: 20px;
   color: #666;
- }
- 
- 
- .auth-link a {
+}
+
+.auth-link a {
   color: #667eea;
   text-decoration: none;
   font-weight: 500;
- }
- 
- 
- .auth-link a:hover {
+}
+
+.auth-link a:hover {
   text-decoration: underline;
- }
- 
- 
- .error-message {
+}
+
+.error-message {
   background: #fee;
   color: #c33;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 20px;
   text-align: center;
- }
- 
+}
+
+.dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.dashboard-header {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.dashboard-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-info span {
+  color: #666;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.balance-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.balance-label {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.balance-amount {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+}
+
+.balance-positive {
+  color: #28a745;
+}
+
+.balance-negative {
+  color: #dc3545;
+}
+
+.transactions-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .transactions-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.transaction-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-card h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.transaction-list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.transaction-item {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-description {
+  flex: 1;
+  color: #333;
+}
+
+.transaction-amount {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.transaction-amount.income {
+  color: #28a745;
+}
+
+.transaction-amount.expense {
+  color: #dc3545;
+}
+
+.add-transaction-form {
+  margin-top: 20px;
+}
+
+.add-transaction-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.add-transaction-form input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.add-transaction-form .btn {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  padding: 40px;
+  font-style: italic;
+}
