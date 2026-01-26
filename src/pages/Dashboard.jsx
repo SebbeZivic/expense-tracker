@@ -57,6 +57,12 @@ function Dashboard() {
     loadTransactions();
   };
 
+  const handleDeleteTransaction = (transactionId) => {
+    if (!user) return;
+    transactionService.deleteTransaction(user.email, transactionId);
+    loadTransactions();
+  };
+
   const incomeTransactions =
     transactionService.getIncomeTransactions(transactions);
   const expenseTransactions =
@@ -68,6 +74,10 @@ function Dashboard() {
       currency: "SEK",
     }).format(Math.abs(amount));
   };
+
+  const currentMonthLabel = new Date().toLocaleDateString("sv-SE", {
+    month: "long",
+  });
 
   return (
     <div className="dashboard">
@@ -87,6 +97,11 @@ function Dashboard() {
 
       <div className="dashboard-content">
         <div className="balance-card">
+          <div className="balance-month">
+            {currentMonthLabel.charAt(0).toUpperCase() +
+              currentMonthLabel.slice(1)}{" "}
+            månad
+          </div>
           <div className="balance-label">Din balans</div>
           <div
             className={`balance-amount ${
@@ -109,9 +124,20 @@ function Dashboard() {
                     <span className="transaction-description">
                       {transaction.description}
                     </span>
-                    <span className="transaction-amount income">
-                      +{formatAmount(transaction.amount)}
-                    </span>
+                    <div className="transaction-actions">
+                      <span className="transaction-amount income">
+                        +{formatAmount(transaction.amount)}
+                      </span>
+                      <button
+                        type="button"
+                        className="delete-btn"
+                        onClick={() => handleDeleteTransaction(transaction.id)}
+                        aria-label={`Ta bort ${transaction.description}`}
+                        title="Ta bort"
+                      >
+                        Ta bort
+                      </button>
+                    </div>
                   </li>
                 ))
               )}
@@ -150,9 +176,20 @@ function Dashboard() {
                     <span className="transaction-description">
                       {transaction.description}
                     </span>
-                    <span className="transaction-amount expense">
-                      -{formatAmount(transaction.amount)}
-                    </span>
+                    <div className="transaction-actions">
+                      <span className="transaction-amount expense">
+                        -{formatAmount(transaction.amount)}
+                      </span>
+                      <button
+                        type="button"
+                        className="delete-btn"
+                        onClick={() => handleDeleteTransaction(transaction.id)}
+                        aria-label={`Ta bort ${transaction.description}`}
+                        title="Ta bort"
+                      >
+                        Ta bort
+                      </button>
+                    </div>
                   </li>
                 ))
               )}

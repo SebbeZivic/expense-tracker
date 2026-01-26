@@ -28,6 +28,26 @@ export function addTransaction(userId, description, amount) {
   return newTransaction;
 }
 
+export function deleteTransaction(userId, transactionId) {
+  const transactionsJson = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
+  if (!transactionsJson) return false;
+
+  const allTransactions = JSON.parse(transactionsJson);
+  const beforeCount = allTransactions.length;
+
+  const nextTransactions = allTransactions.filter(
+    (t) => !(t.userId === userId && t.id === transactionId)
+  );
+
+  if (nextTransactions.length === beforeCount) return false;
+
+  localStorage.setItem(
+    STORAGE_KEY_TRANSACTIONS,
+    JSON.stringify(nextTransactions)
+  );
+  return true;
+}
+
 export function calculateBalance(transactions) {
   return transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
 }
@@ -43,6 +63,7 @@ export function getExpenseTransactions(transactions) {
 export const transactionService = {
   getTransactions,
   addTransaction,
+  deleteTransaction,
   calculateBalance,
   getIncomeTransactions,
   getExpenseTransactions,
