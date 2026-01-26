@@ -171,6 +171,15 @@ body {
   text-align: center;
 }
 
+.balance-month {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
 .balance-label {
   color: #666;
   font-size: 18px;
@@ -250,6 +259,32 @@ body {
 
 .transaction-amount.expense {
   color: #dc3545;
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-btn {
+  border: 1px solid #dc3545;
+  background: transparent;
+  color: #dc3545;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+.delete-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
 }
 
 .add-transaction-form {
