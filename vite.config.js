@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./vitest.setup.js'],
   },
   base: process.env.NODE_ENV === 'production' ? '/expense-tracker/' : '/',
 })

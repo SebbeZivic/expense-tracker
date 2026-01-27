@@ -1,68 +1,430 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  background-color: #f5f5f5;
+}
+
+.auth-container {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
+  background: linear-gradient(135deg, lightgrey 0%, grey 100%);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.auth-card {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.auth-card h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 28px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #5568d3;
+}
+
+.btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.auth-link a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dashboard {
+  min-height: 100vh;
+  background: radial-gradient(
+      circle at 15% 10%,
+      rgba(99, 102, 241, 0.18) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 70%,
+      rgba(236, 72, 153, 0.12) 0%,
+      transparent 55%
+    ),
+    #f6f7fb;
+}
+
+.dashboard-header {
+  background: transparent;
+  padding: 22px 20px 10px;
+  margin-bottom: 18px;
+  box-shadow: none;
+}
+
+.dashboard-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+@media (max-width: 768px) {
+  .dashboard-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
-  a:hover {
-    color: #747bff;
+
+  .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+.dashboard-header h1 {
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-info span {
+  color: #475569;
+  font-size: 14px;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 22px rgba(239, 68, 68, 0.3);
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(239, 68, 68, 0.38);
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 20px 44px;
+}
+
+.balance-card {
+  background: radial-gradient(
+    circle at top left,
+    rgba(99, 102, 241, 0.14) 0%,
+    rgba(255, 255, 255, 0.95) 50%
+  );
+  padding: 26px 28px;
+  border-radius: 22px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+  margin-bottom: 28px;
+  text-align: left;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.balance-month {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4f46e5;
+  margin-bottom: 6px;
+}
+
+.balance-label {
+  color: #64748b;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.balance-amount {
+  font-size: 40px;
+  font-weight: 750;
+  color: #0f172a;
+}
+
+.balance-positive {
+  color: #28a745;
+}
+
+.balance-negative {
+  color: #dc3545;
+}
+
+.transactions-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .transactions-section {
+    grid-template-columns: 1fr;
   }
+}
+
+.transaction-card {
+  background: rgba(255, 255, 255, 0.92);
+  padding: 20px 20px 18px;
+  border-radius: 20px;
+  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.transaction-card h2 {
+  color: #0f172a;
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.transaction-list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.transaction-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-description {
+  flex: 1;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.transaction-amount {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.transaction-amount.income {
+  color: #28a745;
+}
+
+.transaction-amount.expense {
+  color: #dc3545;
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete-btn {
+  border: none;
+  background: rgba(239, 68, 68, 0.14);
+  color: #b91c1c;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.1s ease, color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.delete-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+.add-transaction-form {
+  margin-top: 16px;
+}
+
+.add-transaction-form input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(226, 232, 240, 1);
+  border-radius: 12px;
+  font-size: 14px;
+  background: rgba(248, 250, 252, 0.9);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.add-transaction-form input:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.75);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.add-transaction-form .btn {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  padding: 40px;
+  font-style: italic;
+}
+
+.recurring-expenses-section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.recurring-expenses-title {
+  font-size: 16px;
+  color: #667eea;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.variable-expenses-section {
+  margin-top: 20px;
+}
+
+.variable-expenses-title {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.recurring-item {
+  background-color: white
+  ;
+}
+
+.recurring-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background-color: #667eea;
+  color: white;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
 }
