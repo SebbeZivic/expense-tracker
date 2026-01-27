@@ -63,9 +63,7 @@ npm run coverage
 
 ### Testade funktioner
 - ✅ Login fungerar korrekt
-- ✅ Dashboard renderas när användare är inloggad
-- ✅ Balansberäkning fungerar korrekt
-- ✅ Transaktioner kan läggas till och hämtas
+- ✅ Det går att registrera ett konto korrekt ()
 
 ##  Mock Autentisering
 
