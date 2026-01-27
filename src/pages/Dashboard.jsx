@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { transactionService } from "../services/transactionService";
+import { recurringExpenseService } from "../services/recurringExpenseService";
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -10,10 +11,13 @@ function Dashboard() {
   const [incomeAmount, setIncomeAmount] = useState("");
   const [expenseDescription, setExpenseDescription] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
+  const [isRecurringExpense, setIsRecurringExpense] = useState(false);
+  const [recurringExpenses, setRecurringExpenses] = useState([]);
 
   useEffect(() => {
     if (user) {
       loadTransactions();
+      loadRecurringExpenses();
     }
   }, [user]);
 
@@ -22,7 +26,15 @@ function Dashboard() {
 
     const userTransactions = transactionService.getTransactions(user.email);
     setTransactions(userTransactions);
-    setBalance(transactionService.calculateBalance(userTransactions));
+    
+    // Beräkna balans från transaktioner
+    const transactionBalance = transactionService.calculateBalance(userTransactions);
+    
+    // Lägg till fasta kostnader i balansen
+    const recurringExpenses = recurringExpenseService.getRecurringExpenses(user.email);
+    const recurringTotal = recurringExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+    
+    setBalance(transactionBalance - recurringTotal);
   };
 
   const handleAddIncome = (e) => {
@@ -44,23 +56,50 @@ function Dashboard() {
   const handleAddExpense = (e) => {
     e.preventDefault();
     if (!user || !expenseDescription || !expenseAmount) return;
-
+  
     const amount = parseFloat(expenseAmount);
     if (isNaN(amount) || amount <= 0) {
       alert("Ange ett giltigt belopp");
       return;
     }
-
-    transactionService.addTransaction(user.email, expenseDescription, -amount);
+  
+    // Om det är en fast kostnad, spara den ENDAST som fast kostnad
+    if (isRecurringExpense) {
+      recurringExpenseService.addRecurringExpense(
+        user.email,
+        expenseDescription,
+        amount
+      );
+      loadRecurringExpenses();
+      loadTransactions(); // Uppdatera balansen
+    } else {
+      // Om det är en rörlig kostnad, lägg till som vanlig transaktion
+      transactionService.addTransaction(user.email, expenseDescription, -amount);
+      loadTransactions();
+    }
+  
     setExpenseDescription("");
     setExpenseAmount("");
-    loadTransactions();
+    setIsRecurringExpense(false);
   };
 
   const handleDeleteTransaction = (transactionId) => {
     if (!user) return;
     transactionService.deleteTransaction(user.email, transactionId);
     loadTransactions();
+  };
+
+  const loadRecurringExpenses = () => {
+    if (!user) return;
+    const expenses = recurringExpenseService.getRecurringExpenses(user.email);
+    setRecurringExpenses(expenses);
+  };
+  
+  const handleDeleteRecurringExpense = (expenseId) => {
+    if (!user) return;
+    recurringExpenseService.deleteRecurringExpense(user.email, expenseId);
+    loadRecurringExpenses();
+    loadTransactions(); // Uppdatera balansen när fast kostnad tas bort
   };
 
   const incomeTransactions =
@@ -167,33 +206,71 @@ function Dashboard() {
 
           <div className="transaction-card">
             <h2>Kostnader</h2>
-            <ul className="transaction-list">
-              {expenseTransactions.length === 0 ? (
-                <li className="empty-state">Inga kostnader ännu</li>
-              ) : (
-                expenseTransactions.map((transaction) => (
-                  <li key={transaction.id} className="transaction-item">
-                    <span className="transaction-description">
-                      {transaction.description}
-                    </span>
-                    <div className="transaction-actions">
-                      <span className="transaction-amount expense">
-                        -{formatAmount(transaction.amount)}
+            
+            {/* Visa fasta kostnader först */}
+            {recurringExpenses.length > 0 && (
+              <div className="recurring-expenses-section">
+                <h3 className="recurring-expenses-title">Fasta kostnader (samma varje månad)</h3>
+                <ul className="transaction-list">
+                  {recurringExpenses.map((expense) => (
+                    <li key={expense.id} className="transaction-item recurring-item">
+                      <span className="transaction-description">
+                        {expense.description}
+                        <span className="recurring-badge">Fast kostnad</span>
                       </span>
-                      <button
-                        type="button"
-                        className="delete-btn"
-                        onClick={() => handleDeleteTransaction(transaction.id)}
-                        aria-label={`Ta bort ${transaction.description}`}
-                        title="Ta bort"
-                      >
-                        Ta bort
-                      </button>
-                    </div>
-                  </li>
-                ))
+                      <div className="transaction-actions">
+                        <span className="transaction-amount expense">
+                          -{formatAmount(expense.amount)}
+                        </span>
+                        <button
+                          type="button"
+                          className="delete-btn"
+                          onClick={() => handleDeleteRecurringExpense(expense.id)}
+                          aria-label={`Ta bort ${expense.description}`}
+                          title="Ta bort"
+                        >
+                          Ta bort
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Visa rörliga kostnader */}
+            <div className="variable-expenses-section">
+              {recurringExpenses.length > 0 && (
+                <h3 className="variable-expenses-title">Rörliga kostnader</h3>
               )}
-            </ul>
+              <ul className="transaction-list">
+                {expenseTransactions.length === 0 ? (
+                  <li className="empty-state">Inga kostnader ännu</li>
+                ) : (
+                  expenseTransactions.map((transaction) => (
+                    <li key={transaction.id} className="transaction-item">
+                      <span className="transaction-description">
+                        {transaction.description}
+                      </span>
+                      <div className="transaction-actions">
+                        <span className="transaction-amount expense">
+                          -{formatAmount(transaction.amount)}
+                        </span>
+                        <button
+                          type="button"
+                          className="delete-btn"
+                          onClick={() => handleDeleteTransaction(transaction.id)}
+                          aria-label={`Ta bort ${transaction.description}`}
+                          title="Ta bort"
+                        >
+                          Ta bort
+                        </button>
+                      </div>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
             <form onSubmit={handleAddExpense} className="add-transaction-form">
               <input
                 type="text"
@@ -202,7 +279,7 @@ function Dashboard() {
                 onChange={(e) => setExpenseDescription(e.target.value)}
                 required
               />
-              <input
+                           <input
                 type="number"
                 placeholder="Belopp (SEK)"
                 value={expenseAmount}
@@ -211,6 +288,14 @@ function Dashboard() {
                 min="0.01"
                 required
               />
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={isRecurringExpense}
+                  onChange={(e) => setIsRecurringExpense(e.target.checked)}
+                />
+                <span>Fast kostnad (samma varje månad)</span>
+              </label>
               <button type="submit" className="btn">
                 Lägg till kostnad
               </button>
