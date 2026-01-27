@@ -2,7 +2,7 @@
 
 En React-baserad budget tracker-applikation där användare kan hantera sina intäkter och kostnader. Projektet använder mockdata och localStorage för datalagring, och har automatisk CI/CD med GitHub Actions.
 
-## 🚀 Funktioner
+##  Funktioner
 
 - **Autentisering**: Skapa konto och logga in (mockad autentisering med localStorage)
 - **Dashboard**: Översiktlig vy med balans, intäkter och kostnader
@@ -10,10 +10,10 @@ En React-baserad budget tracker-applikation där användare kan hantera sina int
 - **Automatisk balansberäkning**: Balansen uppdateras automatiskt baserat på transaktioner
 - **Skyddade routes**: Dashboard är endast tillgänglig för inloggade användare
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
-- **Frontend**: React 18 med TypeScript
-- **Routing**: React Router v6
+- **Frontend**: React 
+- **Routing**: React Router 
 - **State Management**: React Context API
 - **Styling**: Vanlig CSS
 - **Build Tool**: Vite
@@ -21,12 +21,12 @@ En React-baserad budget tracker-applikation där användare kan hantera sina int
 - **CI/CD**: GitHub Actions
 - **Deployment**: GitHub Pages
 
-## 📋 Förutsättningar
+##  Förutsättningar
 
 - Node.js 18 eller senare
 - npm eller yarn
 
-## 🏃 Kör projektet lokalt
+##  Kör projektet lokalt
 
 1. **Klona projektet**
    ```bash
@@ -47,7 +47,7 @@ En React-baserad budget tracker-applikation där användare kan hantera sina int
 4. **Öppna i webbläsaren**
    - Applikationen kommer att köras på `http://localhost:5173`
 
-## 🧪 Testning
+##  Testning
 
 ### Köra tester
 ```bash
@@ -67,7 +67,7 @@ npm run coverage
 - ✅ Balansberäkning fungerar korrekt
 - ✅ Transaktioner kan läggas till och hämtas
 
-## 🔐 Mock Autentisering
+##  Mock Autentisering
 
 Projektet använder en mockad autentiseringslösning som lagrar användardata i localStorage.
 
@@ -85,18 +85,10 @@ Projektet använder en mockad autentiseringslösning som lagrar användardata i 
 
 **OBS**: Detta är endast för demoändamål. I en riktig applikation skulle lösenord krypteras och autentisering hanteras via en säker backend.
 
-## 🚀 CI/CD Pipeline
+## CI/CD Pipeline
 
 Projektet har en automatisk CI/CD-pipeline som körs vid varje push till `main`-branchen.
 
-### Workflow-steg:
-
-1. **Checkout**: Hämtar koden från GitHub
-2. **Setup Node.js**: Konfigurerar Node.js 18
-3. **Install dependencies**: Kör `npm ci` för att installera dependencies
-4. **Run tests**: Kör alla tester med Vitest
-5. **Build**: Bygger projektet med `npm run build`
-6. **Deploy**: Deployar automatiskt till GitHub Pages om tester passerar
 
 ### GitHub Pages Deployment
 
@@ -123,41 +115,8 @@ npm run build
 npm run preview
 ```
 
-## 📁 Projektstruktur
 
-```
-expense-tracker/
-├── src/
-│   ├── components/          # (För framtida komponenter)
-│   ├── context/
-│   │   └── AuthContext.tsx  # Autentiseringskontext
-│   ├── pages/
-│   │   ├── Login.tsx        # Inloggningssida
-│   │   ├── Register.tsx     # Registreringssida
-│   │   └── Dashboard.tsx    # Huvudsida med budget
-│   ├── services/
-│   │   ├── authService.ts   # Mock autentisering
-│   │   └── transactionService.ts  # Transaktionshantering
-│   ├── tests/
-│   │   ├── setup.ts         # Test setup
-│   │   ├── auth.test.tsx    # Autentiseringstester
-│   │   ├── dashboard.test.tsx  # Dashboard-tester
-│   │   └── balance.test.ts  # Balansberäkningstester
-│   ├── App.tsx              # Huvudapplikationskomponent
-│   ├── main.tsx             # Entry point
-│   └── index.css            # Globala stilar
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml        # GitHub Actions workflow
-├── public/                  # Statiska filer
-├── index.html               # HTML template
-├── package.json             # Dependencies och scripts
-├── vite.config.ts           # Vite konfiguration
-├── tsconfig.json            # TypeScript konfiguration
-└── README.md                # Denna fil
-```
-
-## 💰 Budgetlogik
+##  Budgetlogik
 
 - **Intäkter**: Positiva belopp (t.ex. +5000 SEK)
 - **Kostnader**: Negativa belopp (t.ex. -3000 SEK)
@@ -165,7 +124,7 @@ expense-tracker/
   - Om balansen är positiv visas den i grönt
   - Om balansen är negativ visas den i rött
 
-## 🎯 Användning
+##  Användning
 
 ### Testkonto
 Ett demo-konto skapas automatiskt första gången du öppnar applikationen:
@@ -187,17 +146,10 @@ Du kan använda detta konto för att logga in direkt, eller skapa ett nytt konto
    - Lägga till nya kostnader
 4. **Logga ut**: Klicka på "Logga ut"-knappen för att logga ut
 
-## 📝 Noteringar
+##  Noteringar
 
 - All data lagras lokalt i webbläsarens localStorage
 - Data försvinner om localStorage rensas
 - Endast en användare behövs för demoändamål
 - Projektet är designat för pedagogiska ändamål
 
-## 🤝 Bidrag
-
-Detta projekt är byggt som en demo-applikation. För förbättringar eller buggfixar, skapa gärna en pull request.
-
-## 📄 Licens
-
-Detta projekt är öppet för användning och modifiering.
