@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Netlify
+      - name: Deploy to Netlify #test
         if: github.ref == 'refs/heads/main'
         uses: nwtgck/actions-netlify@v2.0
         with:
