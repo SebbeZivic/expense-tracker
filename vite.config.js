@@ -8,5 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.js'],
   },
-  base: process.env.NODE_ENV === 'production' ? '/expense-tracker/' : '/',
+  // För Netlify ska base vara '/' (root)
+  // Om du vill använda GitHub Pages istället, ändra till '/expense-tracker/'
+  base: '/',
 })
