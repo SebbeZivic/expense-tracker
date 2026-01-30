@@ -26,13 +26,14 @@ jobs:
           npm cache clean --force
           rm -rf node_modules package-lock.json
           npm install --include=optional
-      - name: Build   
+
+      - name: Build
         run: npm run build
 
-        - name: Deploy to Netlify
+      - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
-          publish-dir: './dist'
+          publish-dir: "./dist"
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions (React)"
