@@ -26,8 +26,7 @@ jobs:
           npm cache clean --force
           rm -rf node_modules package-lock.json
           npm install --include=optional
-
-      - name: Build
+      - name: Build   
         run: npm run build
 
         - name: Deploy to Netlify
